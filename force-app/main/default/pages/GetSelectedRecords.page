@@ -1,0 +1,7 @@
+<apex:page standardController="Application__c" extensions="ListviewCloneMultipleController" recordSetVar="ListSelectedRecords" lightningStylesheets="true" showHeader="false" sidebar="false" docType="html-5.0">
+   <!--This is how we call the Flow with a input paramater. Here selectedMentorApps is the input variable of the Flow-->
+    <!-- return to the previous listview page -->
+    <flow:interview name="FL_Clone_Multiples_with_Related_Records_From_ListView" buttonLocation="bottom" finishLocation="{!URLFOR('/lightning/o/Application__c/list')}" >
+        <apex:param name="selectedApplications" value="{!ListSelectedRecords}" />
+    </flow:interview>
+</apex:page>

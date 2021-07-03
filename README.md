@@ -1,18 +1,39 @@
-# Salesforce DX Project: Next Steps
+# Clone Multiple Records with Related records from the Listview
 
-Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
+__Scenario A__: Create a custom action to clone multiple records from the listview including related records. A staff member needs to update external id and neccessary fields for each record at the time of the cloning action.
 
-## How Do You Plan to Deploy Your Changes?
+__Builind Blocks :__ Rest API, JSON, InvocableMethod, ScreenFlow, Custom Quick Acition Button 
 
-Do you want to deploy a set of changes, or create a self-contained application? Choose a [development model](https://developer.salesforce.com/tools/vscode/en/user-guide/development-models).
+__Summary:__  Your company offers a certification program requiring an application, references and review/training processes hosted in a proprietary software application. The certification lasts a year and applicants are required to maintain their certifications by submitting the renewal request to the app. When a returning applicant submits the interest to return, the app creates an a renewal application by cloning the previously existing application with related supplements to start the new review process. This workflow eliminates the full reviewing process for the returning applicants.
 
-## Configure Your Salesforce DX Project
+Salesforce REST API/JSON integration of the external data comes in when there is a new application record; however, the cloned application of the returning applicant should be cloned manually from Salesforce due to irregularity of each applicant's experience after the first program. 
 
-The `sfdx-project.json` file contains useful configuration information for your project. See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm) in the _Salesforce DX Developer Guide_ for details about this file.
+You, as a Salesforce guru, provide solutions for the staff member to clone a multiple records from the aoplication listview including related records and be able to add new infor from the renewed app from the external app.
 
-## Read All About It
+## Screenflow Logic Chart
+![Scrren Flow Overview](assets/SFL_Clone_Multiple_Flow.png).
 
-- [Salesforce Extensions Documentation](https://developer.salesforce.com/tools/vscode/)
-- [Salesforce CLI Setup Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm)
-- [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_intro.htm)
-- [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference.htm)
+## How to Modify Dynamic Apex
+1. [ListviewCloneMultipleController.cls](force-app/main/default/classes/ListviewCloneMultipleController.cls) 
+
+This class contains controller logic for any standard or custom objects of your choice. The apex is dynamically written except for the getter and setter datatype for the variable named __ListSelectedRecords__. This variable is being referenced by a visualforce and the datatype should be specified to match with the StandardController.
+    
+    
+    // the example uses Application__c custom object
+    public List<Application__c> ListSelectedRecords { 
+       get;	
+       set;
+    }
+
+The incovable method for processing a parent record also being expressed in the class. The method requires inputs from a user on the newer record data which is different from the original record. For example, `new external id` or `new employer` info.
+
+2. [CloneMultipleRelatedRecordInvocable.cls](force-app/main/default/classes/CloneMultipleRelatedRecordsInvocable.cls) 
+
+This class contains one invocable method which processes the cloning of child object records when the cloning of parent object is being initiated. The method does not require a uer input though it can be easily configure by adding new variables to FlowInputParameters inner class.
+## How to Modify Visualforce StandardController
+
+
+## How to Modify ScreenFlow
+
+1. [ListviewCloneMultipleController](force-app/main/default/classes/ListviewCloneMultipleController.cls) 
+## Credit
