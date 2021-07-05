@@ -4,7 +4,9 @@ public class DynamicQueryInvocable {
     public static FlowOutputParameters[] cloneRecords(FlowInputParameters[] input){
     // get sObject name
         String sObjectName = input[0].sObjectAPIName;
-        
+       	List<String> idsSet = input[0].ids;
+
+        List<sObject> returnedQueryResults = new  List<sObject>();
         List<String> errorRecordsList = new List<String>();
         FlowOutputParameters output = new FlowOutputParameters();
         FlowOutputParameters[] outputs = new FlowOutputParameters []{};
@@ -20,9 +22,9 @@ public class DynamicQueryInvocable {
             }
                 query = query.removeEnd(', ');
                 query += ' FROM '+sObjectName;
-                query += ' WHERE Id IN :input[0].Ids.size';
-            
-            output.returnedQueriedRecords.addAll(Database.query(query));
+                query += ' WHERE Id IN :idsSet';
+   
+            output.returnedQueriedRecords = Database.query(query);
 
         }else if(input[0].Ids.size()>30){
             return null; // if more than 30 records are selected. the transaction stops and flow error displays

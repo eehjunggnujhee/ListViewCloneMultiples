@@ -1,52 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionCalls>
-        <description>invocable method from Listview_Clone_Multiple_Records</description>
-        <name>ACT_Clone_updatedApps_var</name>
-        <label>ACT  Clone updatedApps var</label>
-        <locationX>720</locationX>
-        <locationY>203</locationY>
-        <actionName>ListviewCloneMultipleController</actionName>
-        <actionType>apex</actionType>
-        <connector>
-            <targetReference>Check_ClonedRecordSize</targetReference>
-        </connector>
-        <dataTypeMappings>
-            <typeName>T__recordsToClone</typeName>
-            <typeValue>Application__c</typeValue>
-        </dataTypeMappings>
-        <dataTypeMappings>
-            <typeName>U__clonedsObjectRecords</typeName>
-            <typeValue>Application__c</typeValue>
-        </dataTypeMappings>
-        <faultConnector>
-            <targetReference>S_1_Error_Exception_Apps</targetReference>
-        </faultConnector>
-        <flowTransactionModel>Automatic</flowTransactionModel>
-        <inputParameters>
-            <name>recordsToClone</name>
-            <value>
-                <elementReference>updatedApps</elementReference>
-            </value>
-        </inputParameters>
-        <outputParameters>
-            <assignToReference>errorMassages</assignToReference>
-            <name>errorMessages</name>
-        </outputParameters>
-        <outputParameters>
-            <assignToReference>Ids_failedToClone</assignToReference>
-            <name>errorRecords</name>
-        </outputParameters>
-        <outputParameters>
-            <assignToReference>clonedApps</assignToReference>
-            <name>clonedsObjectRecords</name>
-        </outputParameters>
-    </actionCalls>
-    <actionCalls>
         <name>ACT_cloneRealtedReferences</name>
         <label>ACT cloneRealtedReferences</label>
         <locationX>929</locationX>
-        <locationY>589</locationY>
+        <locationY>752</locationY>
         <actionName>CloneMultipleRelatedRecordsInvocable</actionName>
         <actionType>apex</actionType>
         <connector>
@@ -105,7 +63,7 @@
         <name>ACT_cloneRelatedTouchpoints</name>
         <label>ACT cloneRelatedTouchpoints</label>
         <locationX>927</locationX>
-        <locationY>755</locationY>
+        <locationY>918</locationY>
         <actionName>CloneMultipleRelatedRecordsInvocable</actionName>
         <actionType>apex</actionType>
         <connector>
@@ -160,12 +118,89 @@
             <name>returnedResult</name>
         </outputParameters>
     </actionCalls>
+    <actionCalls>
+        <name>ACT_getAppsToClone</name>
+        <label>ACT getAppsToClone</label>
+        <locationX>527</locationX>
+        <locationY>205</locationY>
+        <actionName>DynamicQueryInvocable</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Loop_selectedApplications_var</targetReference>
+        </connector>
+        <dataTypeMappings>
+            <typeName>U__returnedQueriedRecords</typeName>
+            <typeValue>Application__c</typeValue>
+        </dataTypeMappings>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>ids</name>
+            <value>
+                <elementReference>ids</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>sObjectAPIName</name>
+            <value>
+                <stringValue>Application__c</stringValue>
+            </value>
+        </inputParameters>
+        <outputParameters>
+            <assignToReference>errorMassages</assignToReference>
+            <name>errorMessages</name>
+        </outputParameters>
+        <outputParameters>
+            <assignToReference>selectedApplications</assignToReference>
+            <name>returnedQueriedRecords</name>
+        </outputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>ACT_returnedClonedApplications</name>
+        <label>ACT returnedClonedApplications</label>
+        <locationX>719</locationX>
+        <locationY>374</locationY>
+        <actionName>CloneMultipleParentRecordsInvocable</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Check_ClonedRecordSize</targetReference>
+        </connector>
+        <dataTypeMappings>
+            <typeName>T__recordsToClone</typeName>
+            <typeValue>Application__c</typeValue>
+        </dataTypeMappings>
+        <dataTypeMappings>
+            <typeName>U__clonedsObjectRecords</typeName>
+            <typeValue>Application__c</typeValue>
+        </dataTypeMappings>
+        <faultConnector>
+            <targetReference>S_1_Error_Exception_Apps</targetReference>
+        </faultConnector>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>recordsToClone</name>
+            <value>
+                <elementReference>updatedApps</elementReference>
+            </value>
+        </inputParameters>
+        <outputParameters>
+            <assignToReference>errorMassages</assignToReference>
+            <name>errorMessages</name>
+        </outputParameters>
+        <outputParameters>
+            <assignToReference>Ids_failedToClone</assignToReference>
+            <name>errorRecords</name>
+        </outputParameters>
+        <outputParameters>
+            <assignToReference>clonedApps</assignToReference>
+            <name>clonedsObjectRecords</name>
+        </outputParameters>
+    </actionCalls>
     <apiVersion>52.0</apiVersion>
     <assignments>
         <name>Add_to_updatedApps_var</name>
         <label>Add to updatedApps var</label>
-        <locationX>516</locationX>
-        <locationY>383</locationY>
+        <locationX>529</locationX>
+        <locationY>547</locationY>
         <assignmentItems>
             <assignToReference>updatedApps</assignToReference>
             <operator>Add</operator>
@@ -182,7 +217,7 @@
         <name>Assign_TemporaryValues</name>
         <label>Assign TemporaryValues</label>
         <locationX>347</locationX>
-        <locationY>383</locationY>
+        <locationY>546</locationY>
         <assignmentItems>
             <assignToReference>Loop_selectedApplications_var.Name</assignToReference>
             <operator>Assign</operator>
@@ -212,7 +247,7 @@
         <name>Remove_DMLFailedRecord</name>
         <label>Remove DMLFailedRecord</label>
         <locationX>1399</locationX>
-        <locationY>393</locationY>
+        <locationY>556</locationY>
         <assignmentItems>
             <assignToReference>updatedApps</assignToReference>
             <operator>RemoveFirst</operator>
@@ -228,7 +263,7 @@
         <name>Check_ClonedRecordSize</name>
         <label>Check ClonedRecordSize</label>
         <locationX>712</locationX>
-        <locationY>389</locationY>
+        <locationY>552</locationY>
         <defaultConnector>
             <targetReference>Loop_UpdatedApps_var</targetReference>
         </defaultConnector>
@@ -253,7 +288,7 @@
         <name>Check_Error_Occurred</name>
         <label>Check Error Occurred</label>
         <locationX>919</locationX>
-        <locationY>1119</locationY>
+        <locationY>1282</locationY>
         <defaultConnector>
             <targetReference>S_5_Finish_the_Process</targetReference>
         </defaultConnector>
@@ -298,7 +333,7 @@
         <name>Check_For_Matching_Id</name>
         <label>Check For Matching Id</label>
         <locationX>1155</locationX>
-        <locationY>289</locationY>
+        <locationY>452</locationY>
         <defaultConnector>
             <targetReference>Loop_UpdatedApps_var</targetReference>
         </defaultConnector>
@@ -324,13 +359,13 @@
         <dataType>String</dataType>
         <expression>&apos;/&apos;+{!Loop_Cloned_Apps_var.Id}</expression>
     </formulas>
-    <interviewLabel>FL Clone Multiples with Related Records From ListView {!$Flow.CurrentDateTime}</interviewLabel>
-    <label>FL_Clone Multiples with Related Records From ListView</label>
+    <interviewLabel>FL_Clone Multiples with Related Records From ListView {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>SFL_Clone Multiples with Related Records From ListView</label>
     <loops>
         <name>Loop_Cloned_Apps_var</name>
         <label>Loop Cloned Apps var</label>
         <locationX>927</locationX>
-        <locationY>908</locationY>
+        <locationY>1071</locationY>
         <collectionReference>clonedApps</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -343,22 +378,22 @@
     <loops>
         <name>Loop_selectedApplications_var</name>
         <label>Loop selectedApplications var</label>
-        <locationX>516</locationX>
-        <locationY>206</locationY>
+        <locationX>528</locationX>
+        <locationY>384</locationY>
         <collectionReference>selectedApplications</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
             <targetReference>S_1_Update_Values</targetReference>
         </nextValueConnector>
         <noMoreValuesConnector>
-            <targetReference>ACT_Clone_updatedApps_var</targetReference>
+            <targetReference>ACT_returnedClonedApplications</targetReference>
         </noMoreValuesConnector>
     </loops>
     <loops>
         <name>Loop_UpdatedApps_var</name>
         <label>Loop UpdatedApps var</label>
         <locationX>927</locationX>
-        <locationY>388</locationY>
+        <locationY>551</locationY>
         <collectionReference>updatedApps</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -390,8 +425,8 @@
     <screens>
         <name>S_1_Error_Exception_Apps</name>
         <label>S_1_Error Exception Apps</label>
-        <locationX>888</locationX>
-        <locationY>203</locationY>
+        <locationX>887</locationX>
+        <locationY>374</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -401,13 +436,13 @@
             <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
+        <showHeader>false</showHeader>
     </screens>
     <screens>
         <name>S_1_Update_Values</name>
         <label>S_1_Update Values</label>
         <locationX>347</locationX>
-        <locationY>209</locationY>
+        <locationY>374</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -452,6 +487,43 @@
             <fieldType>InputField</fieldType>
             <isRequired>false</isRequired>
         </fields>
+        <fields>
+            <name>S_1_Update_Values_Section1</name>
+            <fieldType>RegionContainer</fieldType>
+            <fields>
+                <name>S_1_Update_Values_Section1_Column1</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>hi2</name>
+                    <fieldText>&lt;p&gt;hi&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>6</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <fields>
+                <name>S_1_Update_Values_Section1_Column2</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>hi1</name>
+                    <fieldText>&lt;p&gt;hi&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>6</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <isRequired>false</isRequired>
+        </fields>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
     </screens>
@@ -459,7 +531,7 @@
         <name>S_2_Error_Exception_References</name>
         <label>S_2_Error Exception References</label>
         <locationX>1087</locationX>
-        <locationY>588</locationY>
+        <locationY>751</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -475,7 +547,7 @@
         <name>S_2_No_Records_To_Clone</name>
         <label>S_2_No Records To Clone</label>
         <locationX>721</locationX>
-        <locationY>624</locationY>
+        <locationY>787</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -491,7 +563,7 @@
         <name>S_3_Error_Exception_Touchpoints</name>
         <label>S_3_Error Exception Touchpoints</label>
         <locationX>1085</locationX>
-        <locationY>751</locationY>
+        <locationY>914</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -507,7 +579,7 @@
         <name>S_3_Successful_DML_Results</name>
         <label>S_3_Successful DML Results</label>
         <locationX>1239</locationX>
-        <locationY>907</locationY>
+        <locationY>1070</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -526,7 +598,7 @@
         <name>S_4_Display_Compiled_Errors</name>
         <label>S_4_Display Compiled Errors</label>
         <locationX>1235</locationX>
-        <locationY>1111</locationY>
+        <locationY>1274</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -552,7 +624,7 @@
         <name>S_5_Finish_the_Process</name>
         <label>S_5_Finish the Process</label>
         <locationX>927</locationX>
-        <locationY>1332</locationY>
+        <locationY>1495</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -565,13 +637,20 @@
         <showHeader>true</showHeader>
     </screens>
     <start>
-        <locationX>390</locationX>
-        <locationY>48</locationY>
+        <locationX>401</locationX>
+        <locationY>50</locationY>
         <connector>
-            <targetReference>Loop_selectedApplications_var</targetReference>
+            <targetReference>ACT_getAppsToClone</targetReference>
         </connector>
     </start>
-    <status>Active</status>
+    <status>Draft</status>
+    <variables>
+        <name>appIds</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
     <variables>
         <name>clonedApps</name>
         <dataType>SObject</dataType>
@@ -598,6 +677,13 @@
         <name>errorMessagesTouchpoints</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>ids</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
         <isInput>true</isInput>
         <isOutput>true</isOutput>
     </variables>
